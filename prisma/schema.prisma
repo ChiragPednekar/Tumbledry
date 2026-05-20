@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  name          String?
+  email         String?       @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  phone         String?
+  location      String?
+  role          String        @default("USER") // USER, ADMIN, STAFF
+  status        String        @default("Active")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  appointments  Appointment[]
+  orders        Order[]
+  activities    Activity[]
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service       String
+  date          String
+  time          String
+  location      String
+  staffAssigned String?
+  status        String   @default("Pending") // Pending, Confirmed, In Progress, Completed
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service       String
+  price         Float
+  paymentMethod String?
+  paymentStatus String   @default("Pending") // Pending, Paid, Failed, Refunded
+  deliveryStatus String  @default("Placed") // Placed, Confirmed, Processing, Out for Delivery, Delivered, Cancelled
+  invoiceId     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Activity {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actionText String
+  type       String   // booking, system, user
+  createdAt  DateTime @default(now())
+}
