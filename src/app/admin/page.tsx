@@ -34,57 +34,85 @@ export default function AdminDashboard() {
     pendingOrders: 0,
     completedOrders: 0
   });
+  const [chartData, setChartData] = useState(initialChartData);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
 
   useEffect(() => {
     const syncData = async () => {
       try {
-        const usersRes = await fetch('/api/users');
-        const { users } = await usersRes.json();
-        
-        const activityRes = await fetch('/api/activity');
-        const { activities } = await activityRes.json();
-        
-        const originalOrders: Record<string, any> = {
-          "USR-891": { price: 1250, payment: "Paid", delivery: "Delivered" },
-          "USR-892": { price: 450, payment: "Pending", delivery: "Processing" },
-          "USR-893": { price: 300, payment: "Paid", delivery: "Out for Delivery" },
-          "USR-894": { price: 850, payment: "Paid", delivery: "Confirmed" },
-          "USR-895": { price: 2100, payment: "Failed", delivery: "Cancelled" }
-        };
+        const [usersRes, ordersRes, appointmentsRes, activityRes] = await Promise.all([
+          fetch('/api/users').then(r => r.json()),
+          fetch('/api/orders').then(r => r.json()),
+          fetch('/api/appointments').then(r => r.json()),
+          fetch('/api/activity').then(r => r.json())
+        ]);
 
-        let calculatedRevenue = 0;
-        let pendingCount = 0;
-        let completedCount = 0;
+        const users = usersRes.users || [];
+        const orders = ordersRes.orders || [];
+        const appointments = appointmentsRes.appointments || [];
+        const activities = activityRes.activities || [];
 
-        users.forEach((u: any) => {
-          const original = originalOrders[u.id];
-          if (original) {
-            if (original.payment === "Paid") calculatedRevenue += original.price;
-            if (original.delivery === "Delivered") completedCount += 1;
-            else if (original.delivery !== "Cancelled") pendingCount += 1;
-          } else {
-            // New user scheduled pickup
-            pendingCount += 1;
+        // KPI Calculations
+        const totalUsers = users.length;
+        const totalAppointments = appointments.length;
+        const revenue = orders
+          .filter((o: any) => o.paymentStatus === 'Paid')
+          .reduce((sum: number, o: any) => sum + o.price, 0);
+        const pendingOrders = orders.filter((o: any) => o.deliveryStatus !== 'Delivered' && o.deliveryStatus !== 'Cancelled').length;
+        const completedOrders = orders.filter((o: any) => o.deliveryStatus === 'Delivered').length;
+
+        setKpis({
+          totalUsers,
+          appointments: totalAppointments,
+          revenue,
+          pendingOrders,
+          completedOrders
+        });
+
+        // Dynamic Chart Data mapping (by day of week)
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const mappedChartData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(dayName => {
+          return { name: dayName, revenue: 0, users: 0, bookings: 0 };
+        });
+
+        orders.forEach((o: any) => {
+          const date = new Date(o.createdAt);
+          const dayName = daysOfWeek[date.getDay()];
+          const chartDay = mappedChartData.find(d => d.name === dayName);
+          if (chartDay && o.paymentStatus === 'Paid') {
+            chartDay.revenue += o.price;
           }
         });
-        
-        setKpis(prev => {
-          return {
-            totalUsers: users.length,
-            appointments: users.length, 
-            revenue: calculatedRevenue, 
-            pendingOrders: pendingCount,
-            completedOrders: completedCount
-          };
+
+        users.forEach((u: any) => {
+          const date = new Date(u.createdAt);
+          const dayName = daysOfWeek[date.getDay()];
+          const chartDay = mappedChartData.find(d => d.name === dayName);
+          if (chartDay) {
+            chartDay.users += 1;
+          }
         });
-        
+
+        appointments.forEach((a: any) => {
+          const date = new Date(a.createdAt);
+          const dayName = daysOfWeek[date.getDay()];
+          const chartDay = mappedChartData.find(d => d.name === dayName);
+          if (chartDay) {
+            chartDay.bookings += 1;
+          }
+        });
+
+        setChartData(mappedChartData);
+
         setRecentActivity(prev => {
           if (JSON.stringify(prev) !== JSON.stringify(activities)) {
             return activities;
           }
           return prev;
         });
-      } catch(e) { console.error(e) }
+      } catch(e) { 
+        console.error("Dashboard synchronization error:", e);
+      }
     };
 
     syncData();
@@ -92,8 +120,6 @@ export default function AdminDashboard() {
     
     return () => clearInterval(interval);
   }, []);
-
-  const [recentActivity, setRecentActivity] = useState<any[]>([]);
 
   const statCards = [
     { label: "Total Users", value: kpis.totalUsers, change: "0%", isPositive: true, icon: Users },
@@ -188,7 +214,7 @@ export default function AdminDashboard() {
           
           <div className="flex-1 w-full h-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={initialChartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#10b981" stopOpacity={0.8}/>

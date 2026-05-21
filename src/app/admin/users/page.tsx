@@ -6,23 +6,44 @@ import { Search, Filter, Plus, Edit2, Trash2, Shield, Mail, Phone, MapPin, Eye, 
 export default function UsersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [users, setUsers] = useState<any[]>([
-    { id: "USR-891", name: "Rahul Sharma", email: "rahul.s@example.com", phone: "+91 98765 43210", location: "Andheri West", joined: "Oct 12, 2023", status: "Active", lastActive: "2 hours ago" },
-    { id: "USR-892", name: "Priya Patel", email: "priya.p@example.com", phone: "+91 98765 43211", location: "Bandra Kurla", joined: "Nov 05, 2023", status: "Active", lastActive: "1 day ago" },
-  ]);
+  const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
     const syncData = async () => {
       try {
         const res = await fetch('/api/users');
         const { users: storedUsers } = await res.json();
-        if (storedUsers && storedUsers.length > 0) {
+        if (storedUsers) {
+          const formatted = storedUsers.map((u: any) => {
+            const date = new Date(u.createdAt);
+            const joined = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            // Format relative time for last active
+            const diffMs = Date.now() - date.getTime();
+            const diffMins = Math.floor(diffMs / 60000);
+            let lastActive = "Just now";
+            if (diffMins >= 1 && diffMins < 60) lastActive = `${diffMins}m ago`;
+            else if (diffMins >= 60) {
+              const diffHours = Math.floor(diffMins / 60);
+              if (diffHours < 24) lastActive = `${diffHours}h ago`;
+              else lastActive = date.toLocaleDateString();
+            }
+
+            return {
+              ...u,
+              joined,
+              lastActive
+            };
+          });
+
           setUsers(prev => {
-            if (prev.length !== storedUsers.length) return storedUsers;
+            if (JSON.stringify(prev) !== JSON.stringify(formatted)) return formatted;
             return prev;
           });
         }
-      } catch(e) {}
+      } catch(e) {
+        console.error("Sync users error:", e);
+      }
     };
     syncData();
     const interval = setInterval(syncData, 1000);

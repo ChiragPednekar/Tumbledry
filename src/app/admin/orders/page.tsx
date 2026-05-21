@@ -9,35 +9,38 @@ export default function OrdersPage() {
   useEffect(() => {
     const syncData = async () => {
       try {
-        const res = await fetch('/api/users');
-        const { users } = await res.json();
+        const res = await fetch('/api/orders');
+        const { orders: dbOrders } = await res.json();
         
-        const originalOrders: Record<string, any> = {
-          "USR-891": { service: "Premium Dry Cleaning", price: "₹1,250", payment: "Paid", delivery: "Delivered", date: "Today, 10:30 AM" },
-          "USR-892": { service: "Wash & Fold Regular", price: "₹450", payment: "Pending", delivery: "Processing", date: "Today, 11:15 AM" },
-          "USR-893": { service: "Steam Ironing", price: "₹300", payment: "Paid", delivery: "Out for Delivery", date: "Yesterday, 4:20 PM" },
-          "USR-894": { service: "Shoe Deep Clean", price: "₹850", payment: "Paid", delivery: "Confirmed", date: "Oct 12, 09:00 AM" },
-          "USR-895": { service: "Carpet Spa", price: "₹2,100", payment: "Failed", delivery: "Cancelled", date: "Oct 10, 2:45 PM" }
-        };
+        if (dbOrders) {
+          const mappedOrders = dbOrders.map((o: any) => {
+            const dateObj = new Date(o.createdAt);
+            const dateStr = dateObj.toLocaleDateString('en-IN', {
+              month: 'short',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            });
 
-        const mappedOrders = users.map((u: any, idx: number) => {
-          const original = originalOrders[u.id];
-          return {
-            id: `ORD-${5520 + users.length - idx}`,
-            customer: u.name,
-            service: original ? original.service : "Premium Dry Cleaning",
-            price: original ? original.price : "₹1,250",
-            payment: original ? original.payment : "Pending",
-            delivery: original ? original.delivery : (u.lastActive === "Just now" ? "Placed" : "Delivered"),
-            date: original ? original.date : (u.lastActive === "Just now" ? "Today" : "Yesterday")
-          };
-        });
+            return {
+              id: o.invoiceId || `ORD-${o.id.slice(0, 5).toUpperCase()}`,
+              customer: o.user?.name || "Guest User",
+              service: o.service,
+              price: `₹${o.price.toLocaleString('en-IN')}`,
+              payment: o.paymentStatus,
+              delivery: o.deliveryStatus,
+              date: dateStr
+            };
+          });
 
-        setOrders(prev => {
-          if (prev.length !== mappedOrders.length) return mappedOrders;
-          return prev;
-        });
-      } catch(e) {}
+          setOrders(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(mappedOrders)) return mappedOrders;
+            return prev;
+          });
+        }
+      } catch(e) {
+        console.error("Sync orders page error:", e);
+      }
     };
     
     syncData();

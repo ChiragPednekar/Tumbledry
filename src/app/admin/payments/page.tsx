@@ -10,58 +10,56 @@ export default function PaymentsPage() {
   useEffect(() => {
     const syncData = async () => {
       try {
-        const res = await fetch('/api/users');
-        const { users } = await res.json();
+        const res = await fetch('/api/orders');
+        const { orders: dbOrders } = await res.json();
         
-        const originalPayments: Record<string, any> = {
-          "USR-891": { amount: 1250, method: "UPI", status: "Paid", date: "Oct 12, 10:35 AM" },
-          "USR-892": { amount: 450, method: "Credit Card", status: "Pending", date: "Oct 12, 11:20 AM" },
-          "USR-893": { amount: 300, method: "UPI", status: "Paid", date: "Oct 11, 4:25 PM" },
-          "USR-894": { amount: 850, method: "Net Banking", status: "Refunded", date: "Oct 10, 09:10 AM" },
-          "USR-895": { amount: 2100, method: "Debit Card", status: "Failed", date: "Oct 10, 2:50 PM" }
-        };
+        if (dbOrders) {
+          let totalRev = 0;
+          let paidCount = 0;
+          let refundCount = 0;
+          let totalCount = dbOrders.length;
 
-        let totalRev = 0;
-        let paidCount = 0;
-        let refundCount = 0;
-        let totalCount = 0;
-
-        const mappedPayments = users.map((u: any, idx: number) => {
-          const original = originalPayments[u.id];
-          
-          if (original) {
-            totalCount++;
-            if (original.status === "Paid") {
-              totalRev += original.amount;
+          const mappedPayments = dbOrders.map((o: any, idx: number) => {
+            if (o.paymentStatus === "Paid") {
+              totalRev += o.price;
               paidCount++;
-            }
-            if (original.status === "Refunded") {
+            } else if (o.paymentStatus === "Refunded") {
               refundCount++;
             }
-          }
 
-          return {
-            id: `TXN-${98210 + users.length - idx}`,
-            customer: u.name,
-            amount: original ? `₹${original.amount.toLocaleString()}` : "₹0",
-            method: original ? original.method : "Pending",
-            status: original ? original.status : "Pending",
-            date: original ? original.date : (u.lastActive === "Just now" ? "Today" : "Yesterday"),
-            invoice: `INV-${1000 + users.length - idx}`
-          };
-        });
+            const dateObj = new Date(o.createdAt);
+            const dateStr = dateObj.toLocaleDateString('en-IN', {
+              month: 'short',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            });
 
-        setRevenueStats({
-          total: totalRev,
-          aov: paidCount > 0 ? Math.round(totalRev / paidCount) : 0,
-          refundRate: totalCount > 0 ? Number(((refundCount / totalCount) * 100).toFixed(1)) : 0
-        });
+            return {
+              id: `TXN-${o.id.slice(0, 5).toUpperCase()}`,
+              customer: o.user?.name || "Guest User",
+              amount: `₹${o.price.toLocaleString('en-IN')}`,
+              method: o.paymentStatus === "Paid" ? "UPI" : "Pending",
+              status: o.paymentStatus,
+              date: dateStr,
+              invoice: o.invoiceId || `INV-${o.id.slice(0, 4).toUpperCase()}`
+            };
+          });
 
-        setPayments(prev => {
-          if (prev.length !== mappedPayments.length) return mappedPayments;
-          return prev;
-        });
-      } catch(e) {}
+          setRevenueStats({
+            total: totalRev,
+            aov: paidCount > 0 ? Math.round(totalRev / paidCount) : 0,
+            refundRate: totalCount > 0 ? Number(((refundCount / totalCount) * 100).toFixed(1)) : 0
+          });
+
+          setPayments(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(mappedPayments)) return mappedPayments;
+            return prev;
+          });
+        }
+      } catch(e) {
+        console.error("Sync payments page error:", e);
+      }
     };
     
     syncData();

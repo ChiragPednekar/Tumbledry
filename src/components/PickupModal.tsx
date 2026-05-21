@@ -34,43 +34,35 @@ export default function PickupModal() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
-    
     const formData = new FormData(e.currentTarget);
     const fullName = formData.get('fullName') as string || "Guest User";
+    const phone = formData.get('phone') as string || "";
+    const outlet = formData.get('outlet') as string || "";
+    const service = formData.get('service') as string || "Premium Laundry";
+    const pickupTime = formData.get('pickupTime') as string || "";
+    const address = formData.get('address') as string || "";
     
-    const newUser = {
-      id: `USR-${Math.floor(1000 + Math.random() * 9000)}`,
-      name: fullName,
-      phone: formData.get('phone') as string || "",
-      email: `${fullName.split(' ')[0].toLowerCase()}@example.com`,
-      location: formData.get('outlet') || formData.get('address') || "Mumbai",
-      joined: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      status: "Active",
-      lastActive: "Just now"
-    };
+    // Generate a unique dummy email if email is not in the form
+    const email = `${fullName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()}-${Date.now()}@example.com`;
 
-    const newActivity = {
-      text: `${newUser.name} booked appointment`,
-      time: "Just now",
-      type: "booking"
+    const bookingData = {
+      name: fullName,
+      phone,
+      email,
+      location: outlet || address || "Mumbai",
+      service,
+      pickupTime,
+      address
     };
 
     try {
-      // POST to our in-memory backend
       await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser)
+        body: JSON.stringify(bookingData)
       });
-      
-      await fetch('/api/activity', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newActivity)
-      });
-      
     } catch (err) {
-      console.error(err);
+      console.error("Booking submission error:", err);
     }
 
     setTimeout(() => {

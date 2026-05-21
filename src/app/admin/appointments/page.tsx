@@ -9,36 +9,37 @@ export default function AppointmentsPage() {
   useEffect(() => {
     const syncData = async () => {
       try {
-        const res = await fetch('/api/users');
-        const { users } = await res.json();
+        const res = await fetch('/api/appointments');
+        const { appointments: dbApts } = await res.json();
         
-        const originalApts: Record<string, any> = {
-          "USR-891": { service: "Premium Dry Cleaning", date: "Today", time: "10:30 AM - 11:30 AM", staff: "Rajesh K.", status: "Confirmed" },
-          "USR-892": { service: "Wash & Fold", date: "Today", time: "1:00 PM - 2:00 PM", staff: "Unassigned", status: "Pending" },
-          "USR-893": { service: "Shoe Deep Clean", date: "Today", time: "3:30 PM - 4:30 PM", staff: "Suresh M.", status: "In Progress" },
-          "USR-894": { service: "Steam Ironing", date: "Tomorrow", time: "09:00 AM - 10:00 AM", staff: "Rajesh K.", status: "Confirmed" },
-          "USR-895": { service: "Carpet Spa", date: "Yesterday", time: "2:00 PM - 3:00 PM", staff: "Amit B.", status: "Completed" }
-        };
+        if (dbApts) {
+          const mappedApts = dbApts.map((a: any) => {
+            const dateObj = new Date(a.createdAt);
+            const dateStr = dateObj.toLocaleDateString('en-IN', {
+              month: 'short',
+              day: 'numeric'
+            });
 
-        const mappedApts = users.map((u: any, idx: number) => {
-          const original = originalApts[u.id];
-          return {
-            id: `APT-${1000 + users.length - idx}`,
-            customer: u.name,
-            service: original ? original.service : "Premium Laundry",
-            date: original ? original.date : (u.lastActive === "Just now" ? "Today" : "Yesterday"),
-            time: original ? original.time : "To be confirmed",
-            location: u.location,
-            staff: original ? original.staff : (u.lastActive === "Just now" ? "Unassigned" : "Rajesh K."),
-            status: original ? original.status : (u.lastActive === "Just now" ? "Pending" : "Confirmed")
-          };
-        });
+            return {
+              id: a.id.startsWith('APT-') ? a.id : `APT-${a.id.slice(0, 4).toUpperCase()}`,
+              customer: a.user?.name || "Guest User",
+              service: a.service,
+              date: a.date || dateStr,
+              time: a.time || "To be confirmed",
+              location: a.location || a.user?.location || "Mumbai",
+              staff: a.staffAssigned || "Unassigned",
+              status: a.status
+            };
+          });
 
-        setAppointments(prev => {
-          if (prev.length !== mappedApts.length) return mappedApts;
-          return prev;
-        });
-      } catch(e) {}
+          setAppointments(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(mappedApts)) return mappedApts;
+            return prev;
+          });
+        }
+      } catch(e) {
+        console.error("Sync appointments page error:", e);
+      }
     };
     
     syncData();
