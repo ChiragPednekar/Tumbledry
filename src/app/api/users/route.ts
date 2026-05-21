@@ -64,12 +64,14 @@ export async function POST(request: Request) {
       }
     });
 
-    // Pricing estimation based on service
-    let price = 450;
-    if (service === "Dry Cleaning" || service === "Premium Dry Cleaning") price = 1250;
-    else if (service === "Steam Ironing") price = 300;
-    else if (service === "Shoe & Bag Spa" || service === "Shoe Deep Clean") price = 850;
-    else if (service === "Carpet Spa") price = 2100;
+    // Pricing estimation based on service — matches the form's <option> labels exactly
+    const PRICE_MAP: Record<string, number> = {
+      "Premium Laundry": 450,
+      "Dry Cleaning": 1250,
+      "Steam Ironing": 300,
+      "Shoe & Bag Spa": 850,
+    };
+    const price = PRICE_MAP[service] ?? 450;
 
     // Create Order
     const order = await prisma.order.create({
