@@ -44,7 +44,7 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className={`border rounded-2xl transition-all duration-300 overflow-hidden ${openIndex === index ? 'border-primary bg-blue-50/20 shadow-sm' : 'border-gray-200 hover:border-gray-300'}`}
+              className={`border rounded-2xl transition-all duration-300 overflow-hidden ${openIndex === index ? 'border-lime-500 bg-lime-50/20 shadow-sm' : 'border-gray-200 hover:border-gray-300'}`}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -52,7 +52,7 @@ export default function FAQ() {
               >
                 <span className="font-semibold text-text text-lg pr-8">{faq.question}</span>
                 <ChevronDown 
-                  className={`text-gray-400 shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-180 text-primary' : ''}`} 
+                  className={`text-gray-400 shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-180 text-lime-500' : ''}`} 
                   size={24} 
                 />
               </button>

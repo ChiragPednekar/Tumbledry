@@ -14,7 +14,7 @@ const stages = [
 
 export default function CleaningStages() {
   return (
-    <section className="py-24 bg-primary-dark text-white overflow-hidden relative">
+    <section className="py-24 bg-lime-600 text-white overflow-hidden relative">
       <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -27,9 +27,9 @@ export default function CleaningStages() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              The 6-Stage <br/><span className="text-blue-300">Premium Care Process</span>
+              The 6-Stage <br/><span className="text-lime-300">Premium Care Process</span>
             </h2>
-            <p className="text-blue-100 text-lg mb-8 max-w-md">
+            <p className="text-lime-100 text-lg mb-8 max-w-md">
               We don't just wash clothes. We follow a rigorous scientific process to ensure hygiene, fabric safety, and a crisp finish.
             </p>
             
@@ -43,12 +43,12 @@ export default function CleaningStages() {
                   transition={{ delay: index * 0.1, duration: 0.4 }}
                   className="flex gap-4"
                 >
-                  <div className="mt-1 shrink-0 text-blue-300">
+                  <div className="mt-1 shrink-0 text-lime-300">
                     <CheckCircle2 size={24} />
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold">{stage.title}</h4>
-                    <p className="text-blue-200 text-sm">{stage.desc}</p>
+                    <p className="text-lime-200 text-sm">{stage.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -72,7 +72,7 @@ export default function CleaningStages() {
             
             <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl">
               <p className="text-white font-medium text-lg mb-2">"Extends garment life by 2x"</p>
-              <p className="text-blue-200 text-sm">Certified fabric care process</p>
+              <p className="text-lime-200 text-sm">Certified fabric care process</p>
             </div>
           </motion.div>
 

@@ -29,9 +29,9 @@ export default function SettingsPage() {
         <div className="w-full md:w-64 shrink-0 space-y-1">
           {tabs.map((tab) => (
             <button key={tab.id} className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-colors ${
-              tab.id === 'business' ? 'bg-white shadow-sm border border-gray-200 text-blue-600' : 'text-gray-600 hover:bg-gray-100'
+              tab.id === 'business' ? 'bg-white shadow-sm border border-gray-200 text-lime-600' : 'text-gray-600 hover:bg-gray-100'
             }`}>
-              <tab.icon size={18} className={tab.id === 'business' ? 'text-blue-600' : 'text-gray-400'} />
+              <tab.icon size={18} className={tab.id === 'business' ? 'text-lime-600' : 'text-gray-400'} />
               {tab.label}
             </button>
           ))}
@@ -48,24 +48,24 @@ export default function SettingsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Business Name</label>
-                  <input type="text" defaultValue="Tumbledry Services" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" />
+                  <input type="text" defaultValue="Tumbledry Services" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Support Email</label>
-                  <input type="email" defaultValue="support@tumbledry.in" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" />
+                  <input type="email" defaultValue="support@tumbledry.in" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Contact Number</label>
-                  <input type="text" defaultValue="+91 80000 12345" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" />
+                  <input type="text" defaultValue="+91 80000 12345" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Tax/GST Number</label>
-                  <input type="text" defaultValue="27AADCB2230M1Z2" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none" />
+                  <input type="text" defaultValue="27AADCB2230M1Z2" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none" />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">Registered Address</label>
-                <textarea rows={3} defaultValue="123, Laundry Avenue, Andheri West, Mumbai, Maharashtra 400053" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none resize-none"></textarea>
+                <textarea rows={3} defaultValue="123, Laundry Avenue, Andheri West, Mumbai, Maharashtra 400053" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 outline-none resize-none"></textarea>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function SettingsPage() {
                     <div className="w-20 text-right">
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" defaultChecked className="sr-only peer" />
-                        <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-lime-600"></div>
                       </label>
                     </div>
                   </div>

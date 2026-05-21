@@ -87,16 +87,16 @@ export default function ServicesGrid() {
               className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group relative overflow-hidden flex flex-col h-full cursor-pointer"
               onClick={() => setSelectedService(service)}
             >
-              <div className="w-14 h-14 bg-blue-50 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+              <div className="w-14 h-14 bg-lime-50 text-lime-500 rounded-xl flex items-center justify-center mb-6 group-hover:bg-lime-500 group-hover:text-white transition-colors duration-300">
                 {service.icon}
               </div>
               <h3 className="text-xl font-bold text-text mb-3">{service.title}</h3>
               <p className="text-text-light text-sm mb-6 flex-grow">{service.description}</p>
               
               <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
-                <span className="text-xs font-semibold text-primary uppercase tracking-wider">{service.turnaround}</span>
+                <span className="text-xs font-semibold text-lime-500 uppercase tracking-wider">{service.turnaround}</span>
                 <button 
-                  className="text-text-light group-hover:text-primary transition-colors cursor-pointer"
+                  className="text-text-light group-hover:text-lime-500 transition-colors cursor-pointer"
                 >
                   <ArrowRight size={20} />
                 </button>
@@ -124,18 +124,18 @@ export default function ServicesGrid() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden z-10"
             >
-              <div className="bg-blue-50 p-8 text-center relative border-b border-gray-100">
+              <div className="bg-lime-50 p-8 text-center relative border-b border-gray-100">
                 <button
                   onClick={() => setSelectedService(null)}
                   className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 bg-white hover:bg-gray-100 p-2 rounded-full transition-colors shadow-sm"
                 >
                   <X size={20} />
                 </button>
-                <div className="w-16 h-16 bg-white text-primary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+                <div className="w-16 h-16 bg-white text-lime-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
                   {selectedService.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-text mb-2">{selectedService.title}</h3>
-                <span className="inline-block bg-primary/10 text-primary text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">
+                <span className="inline-block bg-lime-500/10 text-lime-500 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">
                   Turnaround: {selectedService.turnaround}
                 </span>
               </div>
@@ -160,7 +160,7 @@ export default function ServicesGrid() {
                 <a 
                   href="#pickup"
                   onClick={() => setSelectedService(null)}
-                  className="w-full block text-center bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/30"
+                  className="w-full block text-center bg-lime-500 hover:bg-lime-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-lime-500/30"
                 >
                   Book {selectedService.title}
                 </a>

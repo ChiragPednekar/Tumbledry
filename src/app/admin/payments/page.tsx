@@ -90,7 +90,7 @@ export default function PaymentsPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-start mb-4">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+            <div className="w-10 h-10 rounded-xl bg-lime-50 flex items-center justify-center text-lime-600">
               <CreditCard size={20} />
             </div>
             <div className="flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">
@@ -133,10 +133,10 @@ export default function PaymentsPage() {
             <input 
               type="text" 
               placeholder="Search Transaction ID, Invoice..." 
-              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all"
             />
           </div>
-          <select className="w-full sm:w-auto bg-white border border-gray-200 text-sm rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+          <select className="w-full sm:w-auto bg-white border border-gray-200 text-sm rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-lime-500/20">
             <option>All Transactions</option>
             <option>Successful</option>
             <option>Pending</option>
@@ -177,7 +177,7 @@ export default function PaymentsPage() {
                   </td>
                   <td className="px-6 py-4 text-gray-500">{payment.date}</td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-blue-600 font-medium hover:underline">{payment.invoice}</button>
+                    <button className="text-lime-600 font-medium hover:underline">{payment.invoice}</button>
                   </td>
                 </tr>
               ))}

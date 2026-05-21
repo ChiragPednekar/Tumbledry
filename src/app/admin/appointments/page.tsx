@@ -74,7 +74,7 @@ export default function AppointmentsPage() {
           { label: "Completed", count: appointments.filter(a => a.status === "Completed").length },
           { label: "Cancelled", count: appointments.filter(a => a.status === "Cancelled").length },
         ].map(stat => (
-            <div key={stat.label} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm cursor-pointer hover:border-blue-500 transition-colors">
+            <div key={stat.label} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm cursor-pointer hover:border-lime-500 transition-colors">
               <p className="text-xs text-gray-500 font-medium">{stat.label}</p>
               <p className="text-xl font-bold text-gray-900 mt-1">{stat.count}</p>
             </div>
@@ -88,7 +88,7 @@ export default function AppointmentsPage() {
             <input 
               type="text" 
               placeholder="Search by ID, Customer or Location..." 
-              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all"
             />
           </div>
           <div className="flex gap-2 w-full sm:w-auto">
@@ -118,7 +118,7 @@ export default function AppointmentsPage() {
                 <tr key={apt.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer">
                   <td className="px-6 py-4">
                     <p className="font-bold text-gray-900">{apt.id}</p>
-                    <p className="text-xs text-blue-600 font-medium mt-0.5">{apt.service}</p>
+                    <p className="text-xs text-lime-600 font-medium mt-0.5">{apt.service}</p>
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-800">{apt.customer}</td>
                   <td className="px-6 py-4">
@@ -135,7 +135,7 @@ export default function AppointmentsPage() {
                   </td>
                   <td className="px-6 py-4">
                     {apt.staff === 'Unassigned' ? (
-                      <button className="text-xs font-bold bg-blue-50 text-blue-600 px-2.5 py-1 rounded-md border border-blue-100 hover:bg-blue-100 transition-colors">
+                      <button className="text-xs font-bold bg-lime-50 text-lime-600 px-2.5 py-1 rounded-md border border-lime-100 hover:bg-lime-100 transition-colors">
                         Assign Staff
                       </button>
                     ) : (
@@ -146,7 +146,7 @@ export default function AppointmentsPage() {
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${
                       apt.status === 'Completed' ? 'bg-emerald-50 text-emerald-700' : 
                       apt.status === 'Pending' ? 'bg-orange-50 text-orange-700' :
-                      apt.status === 'Confirmed' ? 'bg-blue-50 text-blue-700' :
+                      apt.status === 'Confirmed' ? 'bg-lime-50 text-lime-700' :
                       'bg-purple-50 text-purple-700'
                     }`}>
                       {apt.status === 'Completed' && <CheckCircle2 size={12} />}

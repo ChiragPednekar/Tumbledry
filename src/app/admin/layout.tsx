@@ -8,6 +8,7 @@ import {
   BarChart3, Settings, LogOut, Menu, Bell, Search, 
   Activity, MessageSquare, Megaphone, FileText, Briefcase
 } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 const SIDEBAR_ITEMS = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
@@ -26,6 +27,18 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: "New booking received", time: "5 mins ago", unread: true },
+    { id: 2, title: "Payment ₹1,250 successful", time: "1 hour ago", unread: true },
+    { id: 3, title: "Order #ORD-5524 delayed", time: "3 hours ago", unread: false },
+    { id: 4, title: "New user signup: Priya Patel", time: "5 hours ago", unread: false },
+  ]);
+
+  const markAllRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, unread: false })));
+  };
+
+  const hasUnread = notifications.some(n => n.unread);
 
   // Don't show sidebar on login page
   if (pathname === "/admin/login") {
@@ -40,7 +53,11 @@ export default function AdminLayout({
         className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-slate-900 text-white transition-all duration-300 flex flex-col border-r border-slate-800`}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800">
-          {sidebarOpen && <span className="text-xl font-bold tracking-tight">Tumbledry <span className="text-blue-400 text-sm font-medium ml-1">OS</span></span>}
+          {sidebarOpen && (
+            <div className="flex items-center scale-75 origin-left">
+              <Logo isDark={true} />
+            </div>
+          )}
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors">
             <Menu size={20} />
           </button>
@@ -55,7 +72,7 @@ export default function AdminLayout({
                   key={item.href} 
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                    isActive ? "bg-blue-600 text-white font-medium" : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+                    isActive ? "bg-lime-600 text-white font-medium" : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
                   }`}
                 >
                   <item.icon size={18} className={isActive ? "text-white" : "text-slate-400"} />
@@ -85,7 +102,7 @@ export default function AdminLayout({
               <input 
                 type="text" 
                 placeholder="Search orders, customers, or settings (Cmd+K)" 
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all"
               />
             </div>
           </div>
@@ -97,26 +114,21 @@ export default function AdminLayout({
                 className="relative text-gray-500 hover:text-gray-700 transition-colors"
               >
                 <Bell size={20} />
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                {hasUnread && <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>}
               </button>
               
               {notificationsOpen && (
                 <div className="absolute right-0 mt-4 w-80 bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden z-50 animate-in slide-in-from-top-2">
                   <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <h3 className="font-bold text-gray-900 text-sm">Notifications</h3>
-                    <button className="text-xs text-blue-600 hover:underline font-medium">Mark all read</button>
+                    <button onClick={markAllRead} className="text-xs text-lime-600 hover:underline font-medium">Mark all read</button>
                   </div>
                   <div className="max-h-80 overflow-y-auto custom-scrollbar">
-                    {[
-                      { title: "New booking received", time: "5 mins ago", unread: true },
-                      { title: "Payment ₹1,250 successful", time: "1 hour ago", unread: true },
-                      { title: "Order #ORD-5524 delayed", time: "3 hours ago", unread: false },
-                      { title: "New user signup: Priya Patel", time: "5 hours ago", unread: false },
-                    ].map((notif, i) => (
-                      <div key={i} className={`p-4 border-b border-gray-50 last:border-0 hover:bg-gray-50 cursor-pointer transition-colors ${notif.unread ? 'bg-blue-50/30' : ''}`}>
+                    {notifications.map((notif) => (
+                      <div key={notif.id} className={`p-4 border-b border-gray-50 last:border-0 hover:bg-gray-50 cursor-pointer transition-colors ${notif.unread ? 'bg-lime-50/30' : ''}`}>
                         <div className="flex justify-between items-start gap-2">
                           <p className={`text-sm ${notif.unread ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>{notif.title}</p>
-                          {notif.unread && <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0 mt-1.5"></span>}
+                          {notif.unread && <span className="w-2 h-2 rounded-full bg-lime-600 shrink-0 mt-1.5"></span>}
                         </div>
                         <p className="text-xs text-gray-400 mt-1">{notif.time}</p>
                       </div>
@@ -131,7 +143,7 @@ export default function AdminLayout({
 
             <div className="flex items-center gap-3 border-l border-gray-200 pl-6 cursor-pointer group">
               <div className="text-right hidden md:block">
-                <p className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Admin User</p>
+                <p className="text-sm font-bold text-gray-900 group-hover:text-lime-600 transition-colors">Admin User</p>
                 <p className="text-xs text-gray-500">Super Admin</p>
               </div>
               <div className="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm">

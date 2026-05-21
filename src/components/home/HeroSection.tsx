@@ -8,7 +8,7 @@ export default function HeroSection() {
   return (
     <section className="relative bg-background pt-8 pb-16 md:pt-20 md:pb-32 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-50/50 -z-10 rounded-bl-[100px] hidden md:block"></div>
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-lime-50/50 -z-10 rounded-bl-[100px] hidden md:block"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -20,13 +20,13 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-primary-dark px-4 py-2 rounded-full text-sm font-medium border border-blue-100">
-              <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 bg-lime-50 text-lime-600 px-4 py-2 rounded-full text-sm font-medium border border-lime-100">
+              <span className="flex h-2 w-2 rounded-full bg-lime-500 animate-pulse"></span>
               India's #1 Laundry & Dry Cleaning Network
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text leading-[1.15] tracking-tight">
-              Laundry that works like <span className="text-primary">modern infrastructure.</span>
+              Laundry that works like <span className="text-lime-500">modern infrastructure.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-text-light max-w-lg leading-relaxed">
@@ -34,7 +34,7 @@ export default function HeroSection() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <a href="#pickup" className="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+              <a href="#pickup" className="bg-lime-500 hover:bg-lime-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg shadow-lime-500/30 flex items-center justify-center gap-2 transform hover:-translate-y-1">
                 Schedule Pickup
                 <ArrowRight size={20} />
               </a>
@@ -84,7 +84,7 @@ export default function HeroSection() {
                 transition={{ delay: 1 }}
                 className="absolute top-10 left-[-20px] bg-white rounded-xl p-3 shadow-lg flex items-center gap-3 border border-gray-100"
               >
-                <div className="bg-blue-100 text-primary rounded-lg p-2">
+                <div className="bg-lime-100 text-lime-500 rounded-lg p-2">
                   <span className="font-bold text-lg">24h</span>
                 </div>
                 <div>

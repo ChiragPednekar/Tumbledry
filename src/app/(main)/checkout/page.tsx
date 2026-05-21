@@ -12,24 +12,60 @@ function CheckoutContent() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("upi");
+  const [outletId, setOutletId] = useState("");
+  const [outlets, setOutlets] = useState<{id: string, name: string}[]>([]);
+
+  useEffect(() => {
+    fetch('/api/outlets')
+      .then(res => res.json())
+      .then(data => {
+        if (data.outlets) {
+          setOutlets(data.outlets);
+          if (data.outlets.length > 0) {
+            setOutletId(data.outlets[0].id);
+          }
+        }
+      })
+      .catch(err => console.error("Failed to fetch outlets", err));
+  }, []);
 
   const planName = searchParams.get("plan") || "Selected Plan";
   const planPrice = searchParams.get("price") || "₹0";
 
-  // Simulate payment processing
-  const handlePayment = (e: React.FormEvent) => {
+  const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
     
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service: planName,
+          price: planPrice.replace(/[^0-9.]/g, ''),
+          paymentMethod,
+          outletId
+        })
+      });
+
+      if (res.status === 401) {
+        router.push('/login');
+        return;
+      }
+
+      if (res.ok) {
+        setIsSuccess(true);
+        setTimeout(() => {
+          router.push("/");
+        }, 4000);
+      } else {
+        console.error("Payment failed");
+        setIsProcessing(false);
+      }
+    } catch (err) {
+      console.error(err);
       setIsProcessing(false);
-      setIsSuccess(true);
-      
-      // Redirect back home after success
-      setTimeout(() => {
-        router.push("/");
-      }, 4000);
-    }, 2500);
+    }
   };
 
   if (isSuccess) {
@@ -65,10 +101,10 @@ function CheckoutContent() {
           <ArrowLeft size={18} /> Back
         </Link>
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
+          <div className="w-8 h-8 bg-lime-500 rounded-lg flex items-center justify-center shadow-sm">
             <span className="text-white font-bold leading-none">T</span>
           </div>
-          <span className="font-bold text-primary-dark">tumbledry Secure Checkout</span>
+          <span className="font-bold text-lime-600">tumbledry Secure Checkout</span>
         </div>
         <div className="w-[70px]"></div> {/* Spacer for centering */}
       </header>
@@ -90,7 +126,7 @@ function CheckoutContent() {
               <button 
                 type="button"
                 onClick={() => setPaymentMethod("upi")}
-                className={`flex-1 py-4 px-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${paymentMethod === "upi" ? 'border-primary bg-blue-50/50 text-primary' : 'border-gray-200 text-gray-500 hover:border-gray-300'}`}
+                className={`flex-1 py-4 px-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${paymentMethod === "upi" ? 'border-lime-500 bg-lime-50/50 text-lime-500' : 'border-gray-200 text-gray-500 hover:border-gray-300'}`}
               >
                 <Smartphone size={24} />
                 <span className="font-semibold text-sm">UPI / QR</span>
@@ -98,7 +134,7 @@ function CheckoutContent() {
               <button 
                 type="button"
                 onClick={() => setPaymentMethod("card")}
-                className={`flex-1 py-4 px-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${paymentMethod === "card" ? 'border-primary bg-blue-50/50 text-primary' : 'border-gray-200 text-gray-500 hover:border-gray-300'}`}
+                className={`flex-1 py-4 px-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${paymentMethod === "card" ? 'border-lime-500 bg-lime-50/50 text-lime-500' : 'border-gray-200 text-gray-500 hover:border-gray-300'}`}
               >
                 <CreditCard size={24} />
                 <span className="font-semibold text-sm">Cards</span>
@@ -106,7 +142,7 @@ function CheckoutContent() {
               <button 
                 type="button"
                 onClick={() => setPaymentMethod("netbanking")}
-                className={`flex-1 py-4 px-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${paymentMethod === "netbanking" ? 'border-primary bg-blue-50/50 text-primary' : 'border-gray-200 text-gray-500 hover:border-gray-300'}`}
+                className={`flex-1 py-4 px-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${paymentMethod === "netbanking" ? 'border-lime-500 bg-lime-50/50 text-lime-500' : 'border-gray-200 text-gray-500 hover:border-gray-300'}`}
               >
                 <Building2 size={24} />
                 <span className="font-semibold text-sm">Net Banking</span>
@@ -122,7 +158,7 @@ function CheckoutContent() {
                       type="text" 
                       required
                       placeholder="username@bank" 
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all"
                     />
                   </div>
                   <div className="text-center py-4">
@@ -143,21 +179,21 @@ function CheckoutContent() {
                 <div className="space-y-4 animate-in fade-in zoom-in duration-300">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
-                    <input type="text" required placeholder="0000 0000 0000 0000" maxLength={19} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all font-mono" />
+                    <input type="text" required placeholder="0000 0000 0000 0000" maxLength={19} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all font-mono" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-                      <input type="text" required placeholder="MM/YY" maxLength={5} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all font-mono" />
+                      <input type="text" required placeholder="MM/YY" maxLength={5} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all font-mono" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                      <input type="password" required placeholder="•••" maxLength={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all font-mono" />
+                      <input type="password" required placeholder="•••" maxLength={3} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all font-mono" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
-                    <input type="text" required placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all" />
+                    <input type="text" required placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all" />
                   </div>
                 </div>
               )}
@@ -176,7 +212,7 @@ function CheckoutContent() {
                 <button 
                   type="submit"
                   disabled={isProcessing}
-                  className="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="bg-lime-500 hover:bg-lime-600 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-lime-500/30 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isProcessing ? (
                     <>
@@ -201,6 +237,21 @@ function CheckoutContent() {
         >
           <h3 className="font-bold text-lg mb-6 pb-4 border-b border-gray-100">Order Summary</h3>
           
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Select Outlet</label>
+            <select
+              value={outletId}
+              onChange={(e) => setOutletId(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-lime-500"
+              required
+            >
+              <option value="" disabled>Select an outlet near you</option>
+              {outlets.map(outlet => (
+                <option key={outlet.id} value={outlet.id}>{outlet.name}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="space-y-4 mb-6">
             <div className="flex justify-between items-start">
               <div>
@@ -228,8 +279,8 @@ function CheckoutContent() {
             </div>
           </div>
 
-          <div className="bg-blue-50 rounded-xl p-4 text-sm text-primary-dark flex items-start gap-3">
-            <ShieldCheck size={20} className="shrink-0 text-primary mt-0.5" />
+          <div className="bg-lime-50 rounded-xl p-4 text-sm text-lime-600 flex items-start gap-3">
+            <ShieldCheck size={20} className="shrink-0 text-lime-500 mt-0.5" />
             <p>Your subscription can be modified or paused anytime from the Tumbledry App.</p>
           </div>
         </motion.div>
@@ -243,7 +294,7 @@ export default function CheckoutPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-        <Loader2 size={40} className="animate-spin text-primary mb-2" />
+        <Loader2 size={40} className="animate-spin text-lime-500 mb-2" />
         <p className="text-sm font-medium text-gray-500">Loading Checkout...</p>
       </div>
     }>

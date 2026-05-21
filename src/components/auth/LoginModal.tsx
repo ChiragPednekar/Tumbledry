@@ -89,7 +89,7 @@ export default function LoginModal() {
 
             <div className="p-8">
               <div className="text-center mb-8">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 bg-lime-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <span className="text-white font-bold text-2xl leading-none">T</span>
                 </div>
                 <h3 className="text-2xl font-bold text-text mb-2">
@@ -117,7 +117,7 @@ export default function LoginModal() {
                         type="text" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text"
+                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text"
                         placeholder="John Doe"
                       />
                     </div>
@@ -135,7 +135,7 @@ export default function LoginModal() {
                       type="email" 
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text"
+                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text"
                       placeholder="you@example.com"
                       autoComplete="email"
                       name="email"
@@ -146,7 +146,7 @@ export default function LoginModal() {
                 <div>
                   <label className="block text-sm font-medium text-text mb-1 flex justify-between">
                     <span>Password</span>
-                    {!isSignUp && <a href="#" className="text-primary hover:underline text-xs">Forgot?</a>}
+                    {!isSignUp && <a href="#" className="text-lime-500 hover:underline text-xs">Forgot?</a>}
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -157,7 +157,7 @@ export default function LoginModal() {
                       type="password" 
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text"
+                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text"
                       placeholder="••••••••"
                       minLength={8}
                       autoComplete={isSignUp ? "new-password" : "current-password"}
@@ -169,7 +169,7 @@ export default function LoginModal() {
                 <button 
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-500/30 mt-4 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-lime-500/30 mt-4 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isProcessing ? (
                     <>
@@ -185,12 +185,12 @@ export default function LoginModal() {
               <div className="mt-6 text-center text-sm text-text-light flex flex-col gap-3">
                 <div>
                   {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-                  <button type="button" onClick={toggleMode} className="text-primary font-bold hover:underline">
+                  <button type="button" onClick={toggleMode} className="text-lime-500 font-bold hover:underline">
                     {isSignUp ? "Sign In" : "Sign up"}
                   </button>
                 </div>
                 <div className="pt-3 border-t border-gray-100">
-                  <a href="/admin/login" className="text-xs text-gray-400 hover:text-primary transition-colors font-medium">
+                  <a href="/admin/login" className="text-xs text-gray-400 hover:text-lime-500 transition-colors font-medium">
                     Staff & Admin Portal
                   </a>
                 </div>

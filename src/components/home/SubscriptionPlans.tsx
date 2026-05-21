@@ -47,10 +47,10 @@ export default function SubscriptionPlans() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className={`relative bg-white rounded-3xl p-8 border ${plan.popular ? 'border-primary shadow-xl shadow-blue-500/10' : 'border-gray-200 shadow-sm'} flex flex-col h-full`}
+              className={`relative bg-white rounded-3xl p-8 border ${plan.popular ? 'border-lime-500 shadow-xl shadow-lime-500/10' : 'border-gray-200 shadow-sm'} flex flex-col h-full`}
             >
               {plan.popular && (
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-500 text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide">
                   Most Popular
                 </div>
               )}
@@ -75,7 +75,7 @@ export default function SubscriptionPlans() {
 
               <Link 
                 href={`/checkout?plan=${encodeURIComponent(plan.name)}&price=${encodeURIComponent(plan.price)}`}
-                className={`w-full py-4 rounded-xl font-bold transition-all text-center block ${plan.popular ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-gray-50 text-text hover:bg-gray-100 border border-gray-200'}`}
+                className={`w-full py-4 rounded-xl font-bold transition-all text-center block ${plan.popular ? 'bg-lime-500 text-white hover:bg-lime-600' : 'bg-gray-50 text-text hover:bg-gray-100 border border-gray-200'}`}
               >
                 Choose Plan
               </Link>

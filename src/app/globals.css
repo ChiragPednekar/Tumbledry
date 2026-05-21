@@ -1,13 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1E88E5;
-  --color-primary-dark: #0D47A1;
+  --color-primary: #98C93C;
+  --color-primary-dark: #7CA630;
+  --color-accent: #F8B810;
+  
+  /* Overriding Tailwind's default blue palette to match the logo's green */
+  --color-lime-50: #f5f9eb;
+  --color-lime-100: #e7f2d1;
+  --color-lime-200: #d0e7a8;
+  --color-lime-300: #b5d878;
+  --color-lime-400: #a1ce54;
+  --color-lime-500: #98C93C; /* Logo Green */
+  --color-lime-600: #7CA630; /* Primary Dark */
+  --color-lime-700: #628526;
+  --color-lime-800: #49631b;
+  --color-lime-900: #314212;
+  --color-lime-950: #182109;
+
   --color-background: #F8FAFC;
   --color-surface: #FFFFFF;
   --color-text: #1E293B;
   --color-text-light: #64748B;
-  --color-accent: #25D366;
   --font-sans: var(--font-inter);
 }
 

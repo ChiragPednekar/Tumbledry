@@ -24,6 +24,22 @@ model User {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
+  outletId      String?
+  outlet        Outlet?       @relation(fields: [outletId], references: [id])
+
+  appointments  Appointment[]
+  orders        Order[]
+  activities    Activity[]
+}
+
+model Outlet {
+  id            String        @id @default(cuid())
+  name          String
+  address       String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  users         User[]
   appointments  Appointment[]
   orders        Order[]
   activities    Activity[]
@@ -33,6 +49,8 @@ model Appointment {
   id            String   @id @default(cuid())
   userId        String
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outletId      String?
+  outlet        Outlet?  @relation(fields: [outletId], references: [id])
   service       String
   date          String
   time          String
@@ -47,6 +65,8 @@ model Order {
   id            String   @id @default(cuid())
   userId        String
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outletId      String?
+  outlet        Outlet?  @relation(fields: [outletId], references: [id])
   service       String
   price         Float
   paymentMethod String?
@@ -61,6 +81,8 @@ model Activity {
   id         String   @id @default(cuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outletId   String?
+  outlet     Outlet?  @relation(fields: [outletId], references: [id])
   actionText String
   type       String   // booking, system, user
   createdAt  DateTime @default(now())

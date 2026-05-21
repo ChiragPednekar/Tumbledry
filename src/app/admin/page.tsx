@@ -268,7 +268,7 @@ export default function AdminDashboard() {
               ) : (
                 recentActivity.map((activity, i) => (
                   <div key={i} className="flex gap-4 items-start pb-4 border-b border-gray-50 last:border-0 last:pb-0 animate-in slide-in-from-left-2">
-                    <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-lime-50 text-lime-600 flex items-center justify-center shrink-0">
                       <Activity size={14} />
                     </div>
                     <div>

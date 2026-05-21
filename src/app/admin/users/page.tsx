@@ -79,7 +79,7 @@ export default function UsersPage() {
     s === 'Delivered' ? 'bg-emerald-50 text-emerald-700' :
     s === 'Placed' ? 'bg-gray-100 text-gray-700' :
     s === 'Cancelled' ? 'bg-red-50 text-red-700' :
-    'bg-blue-50 text-blue-700';
+    'bg-lime-50 text-lime-700';
 
   const paymentColor = (s: string) =>
     s === 'Paid' ? 'bg-emerald-50 text-emerald-700' :
@@ -133,7 +133,7 @@ export default function UsersPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by Name, Email, or Phone..."
-              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all"
             />
           </div>
         </div>
@@ -159,7 +159,7 @@ export default function UsersPage() {
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-lime-100 text-lime-600 flex items-center justify-center font-bold text-xs shrink-0 group-hover:bg-lime-600 group-hover:text-white transition-colors">
                         {(user.name || '?').charAt(0).toUpperCase()}
                       </div>
                       <div>
@@ -187,7 +187,7 @@ export default function UsersPage() {
                   </td>
                   <td className="px-6 py-4 text-gray-500 font-medium">{user.joined}</td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-blue-600 text-xs font-bold hover:underline">View Details</button>
+                    <button className="text-lime-600 text-xs font-bold hover:underline">View Details</button>
                   </td>
                 </tr>
               ))}
@@ -214,7 +214,7 @@ export default function UsersPage() {
             {/* Header */}
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 rounded-full bg-lime-100 text-lime-600 flex items-center justify-center font-bold text-lg">
                   {(selectedUser.name || '?').charAt(0).toUpperCase()}
                 </div>
                 <div>
@@ -247,8 +247,8 @@ export default function UsersPage() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-blue-50 rounded-xl p-4">
-                        <p className="text-xs font-medium text-blue-600">Total Orders</p>
+                      <div className="bg-lime-50 rounded-xl p-4">
+                        <p className="text-xs font-medium text-lime-600">Total Orders</p>
                         <p className="text-xl font-bold text-gray-900 mt-1">{userDetail?.stats?.totalOrders ?? 0}</p>
                       </div>
                       <div className="bg-emerald-50 rounded-xl p-4">
@@ -272,7 +272,7 @@ export default function UsersPage() {
                     {userDetail.orders.map((order: any) => (
                       <div key={order.id} className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
                         <div className="flex items-center gap-3">
-                          <Package size={16} className="text-blue-500 shrink-0" />
+                          <Package size={16} className="text-lime-500 shrink-0" />
                           <div>
                             <p className="text-sm font-bold text-gray-900">{order.service}</p>
                             <p className="text-xs text-gray-500 mt-0.5">
@@ -310,7 +310,7 @@ export default function UsersPage() {
                     {userDetail.activities.map((act: any) => (
                       <div key={act.id} className="flex items-center justify-between p-4">
                         <div className="flex items-center gap-3">
-                          <Calendar size={16} className="text-blue-500 shrink-0" />
+                          <Calendar size={16} className="text-lime-500 shrink-0" />
                           <p className="text-sm font-medium text-gray-900">{act.actionText}</p>
                         </div>
                         <span className="text-xs text-gray-400">

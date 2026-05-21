@@ -16,7 +16,7 @@ export default function StickyMobileCTA() {
       </a>
       <a 
         href="#pickup"
-        className="flex-[1.5] flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-medium shadow-sm active:scale-95 transition-transform"
+        className="flex-[1.5] flex items-center justify-center gap-2 bg-lime-500 text-white py-3 rounded-xl font-medium shadow-sm active:scale-95 transition-transform"
       >
         <CalendarCheck size={18} />
         <span>Book Pickup</span>

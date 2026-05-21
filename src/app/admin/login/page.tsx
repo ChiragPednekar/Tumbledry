@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, ArrowRight, ShieldCheck } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { Logo } from "@/components/ui/Logo";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -53,11 +54,11 @@ export default function AdminLogin() {
       <div className="max-w-md w-full">
         <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden">
           
-          <div className="px-8 pt-10 pb-8 text-center border-b border-slate-50">
-            <div className="mx-auto w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20">
-              <ShieldCheck className="text-white w-8 h-8" />
+          <div className="px-8 pt-10 pb-8 text-center border-b border-slate-50 flex flex-col items-center">
+            <div className="mb-4">
+              <Logo />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Tumbledry OS</h2>
+            <h2 className="text-xl font-bold text-slate-900 tracking-tight mt-2">OS Access</h2>
             <p className="text-slate-500 text-sm mt-2">Secure access for authorized personnel only.</p>
           </div>
 
@@ -79,7 +80,7 @@ export default function AdminLogin() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium"
+                    className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all text-sm font-medium"
                     placeholder="admin@tumbledry.in"
                   />
                 </div>
@@ -88,7 +89,7 @@ export default function AdminLogin() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex justify-between">
                   <span>Password</span>
-                  <a href="#" className="text-blue-600 hover:text-blue-700 font-medium text-xs">Forgot password?</a>
+                  <a href="#" className="text-lime-600 hover:text-lime-700 font-medium text-xs">Forgot password?</a>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
@@ -99,7 +100,7 @@ export default function AdminLogin() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium"
+                    className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all text-sm font-medium"
                     placeholder="••••••••"
                   />
                 </div>
@@ -110,7 +111,7 @@ export default function AdminLogin() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 rounded border-slate-300 text-lime-600 focus:ring-lime-500"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-600">
                   Remember this device for 30 days

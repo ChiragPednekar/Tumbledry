@@ -73,7 +73,7 @@ export default function Testimonials() {
               <p className="text-text-light italic mb-8 relative z-10 line-clamp-4">"{review.content}"</p>
               
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-12 h-12 bg-blue-100 text-primary rounded-full flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 bg-lime-100 text-lime-500 rounded-full flex items-center justify-center font-bold text-lg">
                   {review.name.charAt(0)}
                 </div>
                 <div>
@@ -89,7 +89,7 @@ export default function Testimonials() {
           {!showReviewForm ? (
             <button 
               onClick={() => setShowReviewForm(true)}
-              className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-xl font-bold transition-colors inline-flex items-center gap-2"
+              className="bg-white border-2 border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-white px-8 py-3 rounded-xl font-bold transition-colors inline-flex items-center gap-2"
             >
               Write a Review
             </button>
@@ -139,20 +139,20 @@ export default function Testimonials() {
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Full Name</label>
-                        <input required type="text" placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white" />
+                        <input required type="text" placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">City / Location</label>
-                        <input required type="text" placeholder="e.g. Mumbai" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white" />
+                        <input required type="text" placeholder="e.g. Mumbai" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white" />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Your Review</label>
-                      <textarea required rows={4} placeholder="Tell us about your laundry experience..." className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white resize-none"></textarea>
+                      <textarea required rows={4} placeholder="Tell us about your laundry experience..." className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white resize-none"></textarea>
                     </div>
 
-                    <button type="submit" className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-blue-500/30">
+                    <button type="submit" className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-lime-500/30">
                       Submit Review
                     </button>
                   </form>

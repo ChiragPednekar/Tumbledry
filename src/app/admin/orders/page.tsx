@@ -70,7 +70,7 @@ export default function OrdersPage() {
       <div className="flex gap-4 mb-6 overflow-x-auto pb-2 custom-scrollbar">
         {[
           { label: "Placed", count: orders.filter(o => o.delivery === "Placed").length, color: "bg-gray-100 text-gray-800" },
-          { label: "Confirmed", count: orders.filter(o => o.delivery === "Confirmed").length, color: "bg-blue-50 text-blue-700" },
+          { label: "Confirmed", count: orders.filter(o => o.delivery === "Confirmed").length, color: "bg-lime-50 text-lime-700" },
           { label: "Processing", count: orders.filter(o => o.delivery === "Processing").length, color: "bg-purple-50 text-purple-700" },
           { label: "Out for Delivery", count: orders.filter(o => o.delivery === "Out for Delivery").length, color: "bg-orange-50 text-orange-700" },
           { label: "Delivered", count: orders.filter(o => o.delivery === "Delivered").length, color: "bg-emerald-50 text-emerald-700" },
@@ -93,7 +93,7 @@ export default function OrdersPage() {
             <input 
               type="text" 
               placeholder="Search Order ID, Customer..." 
-              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all"
             />
           </div>
           <button className="text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-2">
@@ -135,7 +135,7 @@ export default function OrdersPage() {
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${
                       order.delivery === 'Delivered' ? 'bg-emerald-100 text-emerald-800' : 
                       order.delivery === 'Processing' ? 'bg-purple-100 text-purple-800' :
-                      order.delivery === 'Out for Delivery' ? 'bg-blue-100 text-blue-800' :
+                      order.delivery === 'Out for Delivery' ? 'bg-lime-100 text-lime-800' :
                       order.delivery === 'Cancelled' ? 'bg-red-100 text-red-800' :
                       'bg-gray-100 text-gray-800'
                     }`}>

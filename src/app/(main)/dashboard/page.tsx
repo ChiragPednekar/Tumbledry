@@ -26,7 +26,7 @@ export default async function UserDashboard() {
         {/* Sidebar / Profile Card */}
         <div className="md:col-span-1">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-            <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl font-bold mb-4 mx-auto">
+            <div className="w-20 h-20 bg-lime-100 text-lime-600 rounded-full flex items-center justify-center text-3xl font-bold mb-4 mx-auto">
               {user.name?.charAt(0) || "U"}
             </div>
             <h2 className="text-xl font-bold text-center text-slate-900">Welcome back, {user.name?.split(' ')[0]}</h2>
@@ -60,12 +60,12 @@ export default async function UserDashboard() {
           
           <section>
             <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-              <Calendar size={20} className="text-blue-600" /> Recent Appointments
+              <Calendar size={20} className="text-lime-600" /> Recent Appointments
             </h3>
             {user.appointments.length === 0 ? (
               <div className="bg-white rounded-xl border border-dashed border-slate-300 p-8 text-center">
                 <p className="text-slate-500">No appointments scheduled yet.</p>
-                <a href="/#schedule" className="mt-2 inline-block text-blue-600 font-semibold hover:underline">Schedule a Pickup</a>
+                <a href="/#schedule" className="mt-2 inline-block text-lime-600 font-semibold hover:underline">Schedule a Pickup</a>
               </div>
             ) : (
               <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -79,7 +79,7 @@ export default async function UserDashboard() {
                       </div>
                     </div>
                     <div>
-                      <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
+                      <span className="bg-lime-50 text-lime-700 px-3 py-1 rounded-full text-xs font-bold">
                         {apt.status}
                       </span>
                     </div>
@@ -91,7 +91,7 @@ export default async function UserDashboard() {
 
           <section>
             <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-              <Package size={20} className="text-blue-600" /> Recent Orders
+              <Package size={20} className="text-lime-600" /> Recent Orders
             </h3>
             {user.orders.length === 0 ? (
               <div className="bg-white rounded-xl border border-dashed border-slate-300 p-8 text-center">

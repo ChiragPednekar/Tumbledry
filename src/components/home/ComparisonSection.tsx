@@ -19,7 +19,7 @@ export default function ComparisonSection() {
             <div className="p-6 font-semibold text-text-light hidden md:block">Features</div>
             <div className="p-6 font-semibold text-text-light md:hidden"></div>
             <div className="p-6 font-bold text-center text-gray-500 border-l border-gray-200">Local Laundry</div>
-            <div className="p-6 font-bold text-center text-primary bg-blue-50 border-l border-gray-200">Tumbledry</div>
+            <div className="p-6 font-bold text-center text-lime-500 bg-lime-50 border-l border-gray-200">Tumbledry</div>
           </div>
           
           {[
@@ -38,8 +38,8 @@ export default function ComparisonSection() {
                 <span className="text-sm text-gray-500">{item.local}</span>
               </div>
               
-              <div className="p-4 md:p-6 border-l border-gray-100 bg-blue-50/30 flex flex-col items-center justify-center text-center relative overflow-hidden group">
-                <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="p-4 md:p-6 border-l border-gray-100 bg-lime-50/30 flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                <div className="absolute inset-0 bg-lime-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <Check size={20} className="text-green-500 mb-2 z-10" />
                 <span className="text-sm font-semibold text-text z-10">{item.pro}</span>
               </div>

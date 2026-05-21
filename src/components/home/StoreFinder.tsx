@@ -65,7 +65,7 @@ export default function StoreFinder() {
                   type="text" 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all text-sm font-medium" 
+                  className="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all text-sm font-medium" 
                   placeholder="Search your area in Mumbai..."
                 />
               </div>
@@ -78,7 +78,7 @@ export default function StoreFinder() {
                     <div 
                       key={idx} 
                       onClick={() => setSelectedArea(area)}
-                      className={`p-4 rounded-xl border ${selectedArea === area ? 'border-primary bg-blue-50/30' : 'border-gray-100 hover:border-gray-300'} transition-colors cursor-pointer`}
+                      className={`p-4 rounded-xl border ${selectedArea === area ? 'border-lime-500 bg-lime-50/30' : 'border-gray-100 hover:border-gray-300'} transition-colors cursor-pointer`}
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-bold text-text text-sm">Tumbledry {area}</h4>
@@ -110,7 +110,7 @@ export default function StoreFinder() {
               {/* Overlay UI */}
               <div className="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
                 <div className="bg-white px-4 py-2 rounded-xl shadow-lg border border-gray-100 flex items-center gap-3 pointer-events-auto">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                  <div className="w-10 h-10 bg-lime-500/10 rounded-full flex items-center justify-center text-lime-500">
                     <MapPin size={20} />
                   </div>
                   <div>
@@ -123,7 +123,7 @@ export default function StoreFinder() {
                   href={directionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-primary text-white px-4 py-2.5 rounded-xl shadow-lg font-bold text-sm flex items-center gap-2 hover:bg-primary-dark transition-colors pointer-events-auto"
+                  className="bg-lime-500 text-white px-4 py-2.5 rounded-xl shadow-lg font-bold text-sm flex items-center gap-2 hover:bg-lime-600 transition-colors pointer-events-auto"
                 >
                   <Navigation2 size={16} /> Get Directions <ExternalLink size={14} className="ml-1 opacity-70"/>
                 </a>

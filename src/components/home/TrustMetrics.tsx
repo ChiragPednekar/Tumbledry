@@ -42,9 +42,9 @@ export default function TrustMetrics() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-gray-50 hover:bg-blue-50 transition-colors border border-gray-100"
+              className="flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-gray-50 hover:bg-lime-50 transition-colors border border-gray-100"
             >
-              <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-4">
+              <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-lime-500 mb-4">
                 {metric.icon}
               </div>
               <h3 className="text-3xl font-bold text-text mb-1">{metric.value}</h3>

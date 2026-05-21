@@ -126,7 +126,7 @@ export default function PickupModal() {
                         required 
                         type="text" 
                         name="fullName"
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white"
                         placeholder="John Doe"
                       />
                     </div>
@@ -137,13 +137,13 @@ export default function PickupModal() {
                         type="tel" 
                         name="phone"
                         pattern="[0-9]{10}"
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white"
                         placeholder="9876543210"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Preferred Outlet (Nearest to you)</label>
-                      <select name="outlet" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text">
+                      <select name="outlet" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text">
                         <option value="">Auto-assign nearest outlet</option>
                         {ALL_AREAS.map((area, idx) => (
                           <option key={idx} value={area}>{area}</option>
@@ -152,7 +152,7 @@ export default function PickupModal() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Service Required</label>
-                      <select name="service" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text">
+                      <select name="service" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text">
                         <option>Premium Laundry</option>
                         <option>Dry Cleaning</option>
                         <option>Steam Ironing</option>
@@ -162,7 +162,7 @@ export default function PickupModal() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Pickup Time</label>
-                        <select name="pickupTime" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text text-sm">
+                        <select name="pickupTime" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text text-sm">
                           <option>Today, 10 AM - 1PM</option>
                           <option>Today, 2 PM - 5 PM</option>
                           <option>Today, 6 PM - 9 PM</option>
@@ -171,7 +171,7 @@ export default function PickupModal() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Delivery Time</label>
-                        <select name="deliveryTime" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white text-text text-sm">
+                        <select name="deliveryTime" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white text-text text-sm">
                           <option>Standard (48-72 hrs)</option>
                           <option>Express (Next Day)</option>
                           <option>Super Express (Same Day)</option>
@@ -184,13 +184,13 @@ export default function PickupModal() {
                         required
                         name="address"
                         rows={2}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 focus:bg-white resize-none"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all bg-gray-50 focus:bg-white resize-none"
                         placeholder="House no, Building, Area..."
                       ></textarea>
                     </div>
                     <button 
                       type="submit"
-                      className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-blue-500/30 mt-2"
+                      className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-lime-500/30 mt-2"
                     >
                       Confirm Booking
                     </button>

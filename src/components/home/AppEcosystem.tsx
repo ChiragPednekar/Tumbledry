@@ -32,7 +32,7 @@ export default function AppEcosystem() {
                       <p className="text-sm font-medium">Picked Up</p>
                     </div>
                     <div className="flex items-center gap-3 relative z-10">
-                      <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-[10px]">⚙</div>
+                      <div className="w-6 h-6 rounded-full bg-lime-500 text-white flex items-center justify-center text-[10px]">⚙</div>
                       <p className="text-sm font-medium">Processing</p>
                     </div>
                     <div className="flex items-center gap-3 relative z-10">
@@ -42,12 +42,12 @@ export default function AppEcosystem() {
                   </div>
                 </div>
                 
-                <div className="bg-primary text-white p-4 rounded-2xl flex items-center justify-between mt-auto mb-4">
+                <div className="bg-lime-500 text-white p-4 rounded-2xl flex items-center justify-between mt-auto mb-4">
                   <div>
-                    <p className="text-xs text-blue-200">Total Amount</p>
+                    <p className="text-xs text-lime-200">Total Amount</p>
                     <p className="font-bold">₹450</p>
                   </div>
-                  <button className="bg-white text-primary text-sm px-4 py-2 rounded-lg font-bold">Pay Now</button>
+                  <button className="bg-white text-lime-500 text-sm px-4 py-2 rounded-lg font-bold">Pay Now</button>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function AppEcosystem() {
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
               className="absolute top-1/4 -right-12 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 z-30 hidden md:flex"
             >
-              <div className="w-10 h-10 bg-blue-50 text-primary rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-lime-50 text-lime-500 rounded-full flex items-center justify-center">
                 <Bell size={20} />
               </div>
               <div>
@@ -76,7 +76,7 @@ export default function AppEcosystem() {
             className="order-1 lg:order-2 space-y-8"
           >
             <div>
-              <div className="inline-flex items-center gap-2 bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-semibold mb-4">
+              <div className="inline-flex items-center gap-2 bg-lime-50 text-lime-500 px-3 py-1 rounded-full text-sm font-semibold mb-4">
                 <Smartphone size={16} /> Smart App
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-text mb-4">Laundry in your pocket.</h2>
@@ -87,14 +87,14 @@ export default function AppEcosystem() {
             
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="flex gap-4">
-                <div className="mt-1 text-primary"><Clock size={24} /></div>
+                <div className="mt-1 text-lime-500"><Clock size={24} /></div>
                 <div>
                   <h4 className="font-semibold text-text mb-1">Live Tracking</h4>
                   <p className="text-sm text-text-light">Know exactly where your clothes are at every stage.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="mt-1 text-primary"><CreditCard size={24} /></div>
+                <div className="mt-1 text-lime-500"><CreditCard size={24} /></div>
                 <div>
                   <h4 className="font-semibold text-text mb-1">Digital Payments</h4>
                   <p className="text-sm text-text-light">One-tap secure payments and wallet features.</p>

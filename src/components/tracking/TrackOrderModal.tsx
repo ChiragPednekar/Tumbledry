@@ -68,15 +68,15 @@ export default function TrackOrderModal() {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden z-10"
           >
-            <div className="bg-primary p-6 text-white relative">
+            <div className="bg-lime-500 p-6 text-white relative">
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 text-blue-200 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
+                className="absolute top-4 right-4 text-lime-200 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
               >
                 <X size={20} />
               </button>
               <h3 className="text-xl font-bold mb-1">Track Order</h3>
-              <p className="text-blue-100 text-sm">
+              <p className="text-lime-100 text-sm">
                 {showTimeline ? `Order #${orderId.toUpperCase()}` : "Enter your Order ID to track status"}
               </p>
             </div>
@@ -96,20 +96,20 @@ export default function TrackOrderModal() {
                       value={orderId}
                       onChange={(e) => setOrderId(e.target.value)}
                       placeholder="e.g. TD-8921"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-all uppercase"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-lime-500 transition-all uppercase"
                     />
                   </div>
                   <button 
                     type="submit"
                     disabled={isTracking || !orderId.trim()}
-                    className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-70"
+                    className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-70"
                   >
                     {isTracking ? "Searching..." : "Track Now"}
                   </button>
                   <button
                     type="button"
                     onClick={() => { setOrderId("TD-8921"); handleTrack({ preventDefault: () => {} } as React.FormEvent); }}
-                    className="w-full text-sm text-primary font-bold hover:underline py-2"
+                    className="w-full text-sm text-lime-500 font-bold hover:underline py-2"
                   >
                     Track Latest Order
                   </button>
@@ -121,7 +121,7 @@ export default function TrackOrderModal() {
                       <p className="text-xs text-text-light font-bold uppercase tracking-wider mb-1">Estimated Delivery</p>
                       <p className="text-lg font-bold text-text">Tomorrow, 4:00 PM</p>
                     </div>
-                    <div className="bg-blue-50 text-primary px-3 py-1 rounded-lg text-sm font-bold cursor-pointer hover:bg-blue-100 transition-colors" onClick={() => setShowTimeline(false)}>
+                    <div className="bg-lime-50 text-lime-500 px-3 py-1 rounded-lg text-sm font-bold cursor-pointer hover:bg-lime-100 transition-colors" onClick={() => setShowTimeline(false)}>
                       Change Order
                     </div>
                   </div>
@@ -131,13 +131,13 @@ export default function TrackOrderModal() {
                       <div key={idx} className="relative pl-8">
                         <div className={`absolute -left-[17px] top-0 w-8 h-8 rounded-full border-4 border-white flex items-center justify-center
                           ${step.status === 'completed' ? 'bg-green-500 text-white' : 
-                            step.status === 'active' ? 'bg-primary text-white ring-4 ring-blue-50' : 
+                            step.status === 'active' ? 'bg-lime-500 text-white ring-4 ring-lime-50' : 
                             'bg-gray-200 text-gray-400'}`}
                         >
                           {step.status === 'completed' ? <Check size={14} strokeWidth={3} /> : step.icon}
                         </div>
                         <div>
-                          <h4 className={`font-bold ${step.status === 'active' ? 'text-primary' : step.status === 'completed' ? 'text-text' : 'text-gray-400'}`}>
+                          <h4 className={`font-bold ${step.status === 'active' ? 'text-lime-500' : step.status === 'completed' ? 'text-text' : 'text-gray-400'}`}>
                             {step.title}
                           </h4>
                           <p className="text-xs text-text-light mt-1">{step.time}</p>
@@ -151,7 +151,7 @@ export default function TrackOrderModal() {
             
             {user && (
               <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
-                <p className="text-sm text-text-light">Need help? <a href="#" className="text-primary font-bold hover:underline">Contact Support</a></p>
+                <p className="text-sm text-text-light">Need help? <a href="#" className="text-lime-500 font-bold hover:underline">Contact Support</a></p>
               </div>
             )}
           </motion.div>

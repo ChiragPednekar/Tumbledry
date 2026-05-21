@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Droplets, ShieldCheck, User } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 export default function LoginPage() {
   const [isAdminPortal, setIsAdminPortal] = useState(false);
@@ -11,8 +12,27 @@ export default function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [outletId, setOutletId] = useState("");
+  const [outlets, setOutlets] = useState<{id: string, name: string}[]>([]);
   const [error, setError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (isAdminPortal && !isLogin) {
+      fetch('/api/outlets')
+        .then(res => res.json())
+        .then(data => {
+          if (data.outlets) {
+            setOutlets(data.outlets);
+            if (data.outlets.length > 0) {
+              setOutletId(data.outlets[0].id);
+            }
+          }
+        })
+        .catch(err => console.error("Failed to fetch outlets", err));
+    }
+  }, [isAdminPortal, isLogin]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +48,8 @@ export default function LoginPage() {
             name, 
             email, 
             password, 
-            role: isAdminPortal ? "ADMIN" : "USER"
+            role: isAdminPortal ? "ADMIN" : "USER",
+            outletId: isAdminPortal ? outletId : undefined
           })
         });
         
@@ -95,8 +116,8 @@ export default function LoginPage() {
 
       <div className={`p-8 rounded-2xl shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)] w-full max-w-md transition-colors ${isAdminPortal ? 'bg-slate-900' : 'bg-white'}`}>
         <div className="flex flex-col items-center mb-8">
-          <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${isAdminPortal ? 'bg-white text-slate-900' : 'bg-blue-600 text-white'}`}>
-            {isAdminPortal ? <ShieldCheck size={24} /> : <Droplets size={24} />}
+          <div className="mb-6 scale-90 origin-center">
+            <Logo isDark={isAdminPortal} />
           </div>
           <h1 className={`text-2xl font-bold ${isAdminPortal ? 'text-white' : 'text-gray-900'}`}>
             {isAdminPortal ? (isLogin ? "Admin Login" : "Create Admin") : (isLogin ? "Welcome Back" : "Create Account")}
@@ -120,9 +141,24 @@ export default function LoginPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 ${isAdminPortal ? 'bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500' : 'bg-slate-50 border-slate-200 focus:ring-blue-500/20 focus:border-blue-500'}`}
+                className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 ${isAdminPortal ? 'bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500' : 'bg-slate-50 border-slate-200 focus:ring-lime-500/20 focus:border-lime-500'}`}
                 required={!isLogin}
               />
+            </div>
+          )}
+          {isAdminPortal && !isLogin && (
+            <div>
+              <label className={`block text-sm font-medium mb-1 text-slate-300`}>Select Outlet</label>
+              <select
+                value={outletId}
+                onChange={(e) => setOutletId(e.target.value)}
+                className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500`}
+                required
+              >
+                {outlets.map(outlet => (
+                  <option key={outlet.id} value={outlet.id}>{outlet.name}</option>
+                ))}
+              </select>
             </div>
           )}
           <div>
@@ -131,7 +167,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 ${isAdminPortal ? 'bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500' : 'bg-slate-50 border-slate-200 focus:ring-blue-500/20 focus:border-blue-500'}`}
+              className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 ${isAdminPortal ? 'bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500' : 'bg-slate-50 border-slate-200 focus:ring-lime-500/20 focus:border-lime-500'}`}
               required
             />
           </div>
@@ -141,7 +177,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 ${isAdminPortal ? 'bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500' : 'bg-slate-50 border-slate-200 focus:ring-blue-500/20 focus:border-blue-500'}`}
+              className={`w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 ${isAdminPortal ? 'bg-slate-800 border-slate-700 text-white focus:ring-slate-500/20 focus:border-slate-500' : 'bg-slate-50 border-slate-200 focus:ring-lime-500/20 focus:border-lime-500'}`}
               required
             />
           </div>
@@ -149,7 +185,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className={`w-full font-bold py-2.5 rounded-xl transition-colors mt-2 ${isAdminPortal ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+            className={`w-full font-bold py-2.5 rounded-xl transition-colors mt-2 ${isAdminPortal ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-lime-600 hover:bg-lime-700 text-white'}`}
           >
             {isLogin ? "Sign In" : "Create Account"}
           </button>
@@ -160,7 +196,7 @@ export default function LoginPage() {
           <button 
             onClick={() => setIsLogin(!isLogin)} 
             type="button"
-            className={`font-semibold ml-1 hover:underline focus:outline-none ${isAdminPortal ? 'text-white' : 'text-blue-600'}`}
+            className={`font-semibold ml-1 hover:underline focus:outline-none ${isAdminPortal ? 'text-white' : 'text-lime-600'}`}
           >
             {isLogin ? "Sign up" : "Sign in"}
           </button>
