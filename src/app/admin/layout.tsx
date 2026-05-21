@@ -1,6 +1,6 @@
 "use client"; 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
@@ -27,12 +27,51 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [notifications, setNotifications] = useState([
+  const [notifications, setNotifications] = useState<any[]>([
     { id: 1, title: "New booking received", time: "5 mins ago", unread: true },
     { id: 2, title: "Payment ₹1,250 successful", time: "1 hour ago", unread: true },
     { id: 3, title: "Order #ORD-5524 delayed", time: "3 hours ago", unread: false },
     { id: 4, title: "New user signup: Priya Patel", time: "5 hours ago", unread: false },
   ]);
+  const [lastCheck, setLastCheck] = useState(() => new Date().toISOString());
+
+  useEffect(() => {
+    if (pathname === "/admin/login") return;
+
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch(`/api/admin/notifications?lastCheck=${lastCheck}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        
+        if (data.success && data.notifications && data.notifications.length > 0) {
+          setNotifications(prev => {
+            const newNotifs = data.notifications.map((n: any) => ({
+              id: n.id,
+              title: n.title,
+              time: 'Just now',
+              unread: true
+            }));
+            
+            // To prevent duplicates if multiple polls happen closely
+            const existingIds = new Set(prev.map(p => p.id));
+            const filteredNew = newNotifs.filter((n: any) => !existingIds.has(n.id));
+            
+            return [...filteredNew, ...prev];
+          });
+        }
+        
+        if (data.success && data.checkedAt) {
+          setLastCheck(data.checkedAt);
+        }
+      } catch (err) {
+        console.error("Failed to fetch notifications:", err);
+      }
+    };
+
+    const interval = setInterval(fetchNotifications, 15000);
+    return () => clearInterval(interval);
+  }, [lastCheck, pathname]);
 
   const markAllRead = () => {
     setNotifications(notifications.map(n => ({ ...n, unread: false })));
