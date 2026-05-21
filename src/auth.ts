@@ -13,7 +13,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
+        outletId: { label: "Outlet ID", type: "text" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -42,7 +43,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: user.email,
           name: user.name,
           role: user.role,
-          outletId: user.outletId,
+          outletId: (credentials.outletId as string) || user.outletId,
         }
       }
     })

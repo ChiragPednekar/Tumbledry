@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, ShieldCheck } from "lucide-react";
+import { Lock, Mail, ArrowRight, ShieldCheck, Store } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { Logo } from "@/components/ui/Logo";
 
@@ -11,7 +11,20 @@ export default function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [outletId, setOutletId] = useState("");
+  const [outlets, setOutlets] = useState<{ id: string; name: string }[]>([]);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/outlets")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.outlets) {
+          setOutlets(data.outlets);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch outlets", err));
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +35,7 @@ export default function AdminLogin() {
       const res = await signIn("credentials", {
         email,
         password,
+        outletId,
         redirect: false,
       });
 
@@ -103,6 +117,27 @@ export default function AdminLogin() {
                     className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all text-sm font-medium"
                     placeholder="••••••••"
                   />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Outlet (Optional)</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                    <Store className="h-5 w-5 text-slate-400" />
+                  </div>
+                  <select
+                    value={outletId}
+                    onChange={(e) => setOutletId(e.target.value)}
+                    className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500 transition-all text-sm font-medium appearance-none"
+                  >
+                    <option value="">Default assigned outlet</option>
+                    {outlets.map((outlet) => (
+                      <option key={outlet.id} value={outlet.id}>
+                        {outlet.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
